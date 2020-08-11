@@ -4,6 +4,8 @@ Miscellaneous setup scripts for Linux environment (e.g. bash, powerline, vim).
 
 ## Prerequisites
 - Root access right for installing packages.
+- Git
+- Bash shell
 
 ## Setup
 The following commands will automatically setup powerline, vim, bash, tmux.
