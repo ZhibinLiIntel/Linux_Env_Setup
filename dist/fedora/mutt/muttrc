@@ -1,0 +1,270 @@
+# Receive mail settings
+# Mutt will prompt for a password by default
+#set imap_pass=foo
+set folder="imaps://zhibinli@imapmail.intel.com/"
+set spoolfile="imaps://zhibinli@imapmail.intel.com/"
+set sendmail="/usr/bin/esmtp"
+set imap_keepalive="300"
+set mail_check="120"
+set postponed = +Drafts
+set record = "+Sent Items"
+set ssl_use_tlsv1=yes
+## Send mail settings
+set smtp_url=smtp://smtp.intel.com
+set realname='Zhibin Li'
+set from='zhibin.li@intel.com'
+set hostname="intel.com"
+set envelope_from=yes
+set use_from=yes
+set send_charset="utf-8"
+set forward_format="Fw: %s"
+set header_cache = ~/.mutt/hcache
+set quote_regexp="^([ \t]*[|>:}])+"      # Quoted messages (get rid of '#' which is in the default
+set sort_aux=last-date-received		# Or reverse-last-date-received
+## Basic settings (modified from defaults)
+set pager_stop
+set pager_index_lines=10
+set menu_move_off=no
+set menu_scroll=yes
+set charset="utf-8"
+set mark_old=yes
+## Composing
+# Change to your preferred text editor
+set editor=vim
+set visual=vim
+set edit_headers=yes
+set date_format="%F at %T %Z"
+## Display settings
+set sort=threads
+alternative_order text/plain text/enriched text/html
+# Add to ~/.mailcap to render HTML email to plain text
+# text/html; w3m -I %{charset} -T text/html; copiousoutput;
+auto_view text/html
+unignore Content-Type Message-ID
+hdr_order Date From To Content-Type Message-ID
+## crypto settings
+#source ~/.mutt/crypto
+## color scheme settings
+#source ~/.mutt/colors/myscheme
+
+set trash="imaps://zhibinli@imapmail.intel.com/Deleted Items"
+
+#######################################################
+###  Colors
+#######################################################
+color quoted    yellow     default
+color quoted1   cyan       default
+color quoted2   magenta    default
+color quoted3   green      default
+color quoted4   red        default
+
+color signature blue default
+color normal    white black
+#color normal    black default		# Transparent background
+color status    brightgreen blue
+color indicator brightyellow black
+color error     red black
+color tree      yellow black
+color attachment blue default
+color index     cyan black (calomel.org) color header    green black .*
+color header    brightred  black (^From\:|^Reply-To\:)
+color header    brightyellow black (^To\:|^cc\:|^Cc\:)
+
+color body      brightblue      default "(ftp|http|https)://[^ ]+"
+color body      brightblue      default [-a-z_0-9.]+@[-a-z_0-9.]+
+color body      brightgreen  default "^(gpg: )?Good signature"
+color body      brightgreen  default "^(gpg: )?encrypted"
+color body      brightred    default "^(gpg: )?Bad signature"
+color body      red          default "^(gpg: )?warning:"
+color body      red          default "^(gpg: ).*failed:"
+
+color message    magenta        default # info messages
+color search     brightyellow   red     # search matches
+color tilde      brightmagenta  default # ~ at bottom of msg
+color markers    red            default # + at beginning of wrapped lines
+color hdrdefault cyan           default # default header lines
+color bold       cyan           default # hiliting bold patterns in body
+color underline  cyan           default # hiliting underlined patterns in body
+
+color index     magenta        default  "~T"      # Tagged
+color index     red            default  "~D"      # Deleted
+color index     brightgreen    default  "~N"      # New un-read
+color index     brightcyan     default  "~O"      # Old un-read
+color index     brightblue     black    "~F"      # Flagged
+
+#######################################################
+###  Color patch syntax hightlight
+#######################################################
+# coloring patch
+# diff --git
+color body brightgreen default "^diff --git a/.*$"
+# highlight added lines with trailing whitespace
+color body default brightred "[         ]+$"    # first highlight all trailing whitespace
+color body default black "^[^+].*[      ]+$"    # restore lines not starting with "+"
+color body default black "^[    ]+$"            # restore lines with only whitespace
+# removed
+color body brightred default "^-.*$"
+# added, but not trailing whitespace, no \s \S support, use [[:blank:]] and [^[:blank:]]
+color body brightgreen black "^[+]([[:blank:]]*[^[:blank:]]+)*"
+# --- a/
+color body brightred default "^--- a/.*$"
+# +++ b/
+color body brightgreen default "^[+]{3} b/.*$"
+# @@ -111,3... @@
+color body brightyellow default "^@@.*@@"
+# ---
+color body brightyellow default "^---$"
+# --
+color body yellow default "^--$"
+
+#######################################################
+###  Vim style
+#######################################################
+bind pager G bottom
+bind pager j next-line
+bind pager k previous-line
+bind pager l next-entry
+bind pager h previous-entry
+bind pager \cf next-page
+bind pager \cb previous-page
+bind pager \cj next-entry
+bind pager \ck previous-entry
+bind pager gg top
+bind pager G bottom
+bind index gg first-entry
+bind index G last-entry
+bind index R group-reply
+bind index \cf next-page
+bind index \cb previous-page
+bind index } bottom-page
+bind index f forward-message
+
+#######################################################
+###  Macro
+#######################################################
+macro index \c 0  "<change-folder> =INBOX<enter>"  "show emails in INBOX"
+macro index \c 1  "<change-folder> =HMEM<enter>"  "show emails in label me"
+#macro index \c 0  "<change-folder> =INBOX/{upstream}linux-nfs<enter>"  "go to folder INBOX/{upstream}linux-nfs"
+# This is a complete list of sidebar-related configuration.
+
+# --------------------------------------------------------------------------
+# VARIABLES - shown with their default values
+# --------------------------------------------------------------------------
+
+mailboxes 'imaps://imapmail.intel.com/INBOX'
+mailboxes 'imaps://imapmail.intel.com/HMEM'
+mailboxes 'imaps://imapmail.intel.com/LKP'
+mailboxes 'imaps://imapmail.intel.com/Sent Items'
+mailboxes 'imaps://imapmail.intel.com/Drafts'
+mailboxes 'imaps://imapmail.intel.com/Deleted Items'
+mailboxes 'imaps://imapmail.intel.com/Junk E-Mail'
+
+# Should the Sidebar be shown?
+set sidebar_visible = yes
+
+# How wide should the Sidebar be in screen columns?
+# Note: Some characters, e.g. Chinese, take up two columns each.
+set sidebar_width = 25
+
+# Should the mailbox paths be abbreviated?
+set sidebar_short_path = yes
+
+# When abbreviating mailbox path names, use any of these characters as path
+# separators.  Only the part after the last separators will be shown.
+# For file folders '/' is good.  For IMAP folders, often '.' is useful.
+set sidebar_delim_chars = '/.'
+
+# If the mailbox path is abbreviated, should it be indented?
+set sidebar_folder_indent = no
+
+# Indent mailbox paths with this string.
+set sidebar_indent_string = '  '
+
+# Make the Sidebar only display mailboxes that contain new, or flagged,
+# mail.
+set sidebar_new_mail_only = no
+
+# Any mailboxes that are whitelisted will always be visible, even if the
+# sidebar_new_mail_only option is enabled.
+sidebar_whitelist '/home/user/mailbox1'
+sidebar_whitelist '/home/user/mailbox2'
+
+# When searching for mailboxes containing new mail, should the search wrap
+# around when it reaches the end of the list?
+set sidebar_next_new_wrap = no
+
+# The character to use as the divider between the Sidebar and the other Mutt
+# panels.
+# Note: Only the first character of this string is used.
+set sidebar_divider_char = '|'
+
+# Enable extended buffy mode to calculate total, new, and flagged
+# message counts for each mailbox.
+set mail_check_stats
+
+# Display the Sidebar mailboxes using this format string.
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+
+# Sort the mailboxes in the Sidebar using this method:
+#       count    - total number of messages
+#       flagged  - number of flagged messages
+#       new      - number of new messages
+#       path     - mailbox path
+#       unsorted - do not sort the mailboxes
+set sidebar_sort_method = 'unsorted'
+
+# --------------------------------------------------------------------------
+# FUNCTIONS - shown with an example mapping
+# --------------------------------------------------------------------------
+
+# Move the highlight to the previous mailbox
+bind index,pager \Cp sidebar-prev
+
+# Move the highlight to the next mailbox
+bind index,pager \Cn sidebar-next
+
+# Open the highlighted mailbox
+bind index,pager \Co sidebar-open
+
+# Move the highlight to the previous page
+# This is useful if you have a LOT of mailboxes.
+bind index,pager <F3> sidebar-page-up
+
+# Move the highlight to the next page
+# This is useful if you have a LOT of mailboxes.
+bind index,pager <F4> sidebar-page-down
+
+# Move the highlight to the previous mailbox containing new, or flagged,
+# mail.
+bind index,pager <F5> sidebar-prev-new
+
+# Move the highlight to the next mailbox containing new, or flagged, mail.
+bind index,pager <F6> sidebar-next-new
+
+# Toggle the visibility of the Sidebar.
+bind index,pager B sidebar-toggle-visible
+
+# --------------------------------------------------------------------------
+# COLORS - some unpleasant examples are given
+# --------------------------------------------------------------------------
+# Note: All color operations are of the form:
+#       color OBJECT FOREGROUND BACKGROUND
+
+# Color of the current, open, mailbox
+# Note: This is a general Mutt option which colors all selected items.
+color indicator cyan black
+
+# Color of the highlighted, but not open, mailbox.
+color sidebar_highlight black color8
+
+# Color of the divider separating the Sidebar from Mutt panels
+color sidebar_divider color8 black
+
+# Color to give mailboxes containing flagged mail
+color sidebar_flagged red black
+
+# Color to give mailboxes containing new mail
+color sidebar_new green black
+
+# --------------------------------------------------------------------------
+

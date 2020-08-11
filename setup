@@ -1,0 +1,42 @@
+#!/bin/bash
+
+setup_fedora()
+{
+	echo "$PRETTY_NAME detected"
+	echo "Performing setup procedure ..."
+	export DIST_ROOT=./dist/fedora
+	bash $DIST_ROOT/setup.sh
+}
+
+setup_ubuntu()
+{
+	echo "$PRETTY_NAME detected"
+	echo "Performing setup procedure ..."
+	export DIST_ROOT=./dist/ubuntu
+	bash $DIST_ROOT/setup.sh
+}
+
+unrecg_distro()
+{
+	echo "error: Unrecognized Distribution"
+}
+
+RELEASE_FILE=/etc/os-release
+
+if [ -f "$RELEASE_FILE" ]; then
+	DIST=$(grep NAME $RELEASE_FILE -w | sed -n 's/NAME=//p' | tr -d '"')
+	PRETTY_NAME=$(grep PRETTY_NAME $RELEASE_FILE -w | sed -n 's/PRETTY_NAME=//p' | tr -d '"')
+fi
+
+case "$DIST" in
+	Fedora)
+		setup_fedora
+		;;
+	Ubuntu)
+		setup_ubuntu
+		;;
+	*)
+		unrecg_distro
+		exit 1
+		;;
+esac
