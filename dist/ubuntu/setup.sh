@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\nEntering Fedora configuration directory ...\n"
+echo -e "\nEntering Ubuntu configuration directory ...\n"
 
 echo "=================================================================================="
 echo "Setuping Vim ..."
