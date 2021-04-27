@@ -25,7 +25,7 @@ echo "Setuping Powerline ..."
 sudo apt install powerline fonts-powerline -y
 grep -q "powerline-daemon" ~/.bashrc
 [ $? -ne 0 ] && cat $DIST_ROOT/powerline/bashrc >> ~/.bashrc
-sudo apt install python-pip
+sudo apt install python-pip -y
 pip install powerline-gitstatus --user
 POWERLINE_LOCAL_CONFIG=~/.config/powerline/
 POWERLINE_GLOBAL_CONFIG=/usr/share/powerline/config_files/
