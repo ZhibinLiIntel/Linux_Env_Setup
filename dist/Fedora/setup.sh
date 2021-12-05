@@ -33,7 +33,6 @@ sudo cp -r $POWERLINE_GLOBAL_CONFIG/* $POWERLINE_LOCAL_CONFIG
 sudo chown $USER:$USER $POWERLINE_LOCAL_CONFIG -R
 cp -r $DIST_ROOT/powerline/{colorschemes,themes} $POWERLINE_LOCAL_CONFIG
 powerline-daemon --replace
-exec bash
 echo "Powerline Setup Done"
 echo -e "${GREEN}==================================================================================${RST}"
 
@@ -41,6 +40,6 @@ echo -e "${GREEN}===============================================================
 echo "Setting up GDB"
 sudo dnf install gdb -y
 pip install pygments
-cp $DIST_ROOT/gdb/.gdbinit ~
+cp $DIST_ROOT/gdb/gdbinit ~/.gdbinit
 mkdir -p ~/.gdbinit.d
 echo -e "${GREEN}==================================================================================${RST}"
