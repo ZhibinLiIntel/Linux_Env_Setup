@@ -1,24 +1,21 @@
 #!/bin/bash
 
-setup_fedora()
-{
-	echo "$PRETTY_NAME detected"
-	echo "Performing setup procedure ..."
-	export DIST_ROOT=./dist/fedora
-	bash $DIST_ROOT/setup.sh
-}
+LANG=C
+RED=`tput setaf 1`
+GREEN=`tput setaf 2`
+RST=`tput sgr0`
 
-setup_ubuntu()
+setup()
 {
-	echo "$PRETTY_NAME detected"
-	echo "Performing setup procedure ..."
-	export DIST_ROOT=./dist/ubuntu
-	bash $DIST_ROOT/setup.sh
+	local dist=$1
+	echo -e "${GREEN}$PRETTY_NAME detected${RST}"
+	export DIST_ROOT=./dist/$dist
+	source $DIST_ROOT/setup.sh
 }
 
 unrecg_distro()
 {
-	echo "error: Unrecognized Distribution"
+	echo -e "${RED}error: Unrecognized Distribution${RST}"
 }
 
 RELEASE_FILE=/etc/os-release
@@ -29,11 +26,8 @@ if [ -f "$RELEASE_FILE" ]; then
 fi
 
 case "$DIST" in
-	Fedora)
-		setup_fedora
-		;;
-	Ubuntu)
-		setup_ubuntu
+	Fedora|Ubuntu)
+		setup $DIST
 		;;
 	*)
 		unrecg_distro
