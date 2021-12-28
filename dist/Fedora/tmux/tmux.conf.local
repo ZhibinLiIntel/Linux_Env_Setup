@@ -291,7 +291,7 @@ tmux_conf_copy_to_os_clipboard=false
 # unbind C-b
 # set -g prefix C-a
 # bind C-a send-prefix
-bind d source ~/.tmux.conf.debug
+bind g source ~/.tmux.conf.debug
 
 # move status line to top
 #set -g status-position top
