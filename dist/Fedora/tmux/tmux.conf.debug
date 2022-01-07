@@ -7,7 +7,7 @@ splitw -v -p 10
 select-pane -t 1
 splitw -v -p 50
 select-pane -t 2
-splitw -v -p 50
+splitw -v -p 80
 select-pane -t 1
 splitw -v -p 50
 select-pane -t 7
