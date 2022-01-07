@@ -66,6 +66,7 @@ autocmd BufEnter * call CheckLeftBuffers()
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :bn<CR>
 map <F2> :TlistToggle<CR>
+set pastetoggle=<F3>
 map <C-j> :tn<CR>
 map <C-k> :tp<CR>
 
